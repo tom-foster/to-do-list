@@ -48,10 +48,9 @@ class NewVisitorTest(LiveServerTestCase):
             inputbox.send_keys(Keys.ENTER)
 
             #The page updates again, and now shows both items on her list
-            self.check_for_row_in_list_table('1: Buy peacock feathers')
             self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
-
-            #Now a new yeser, Rachael, comes along to the site.
+            self.check_for_row_in_list_table('1: Buy peacock feathers')
+            #Now a new user, Rachael, comes along to the site.
 
             ##We use a new browser session to make sure that no information
             ##of Mary's is coming through to cookies etc
@@ -68,7 +67,7 @@ class NewVisitorTest(LiveServerTestCase):
             inputbox = self.browser.find_element_by_id('id_new_item')
             inputbox.send_keys('Buy milk')
             inputbox.send_keys(Keys.ENTER)
-            #Rachael gets his own unique URL
+            #Rachael gets her own unique URL
             rachael_list_url = self.browser.current_url
             self.assertRegex(rachael_list_url, '/lists/.+')
             self.assertNotEqual(rachael_list_url, mary_list_url)
@@ -77,7 +76,7 @@ class NewVisitorTest(LiveServerTestCase):
             self.assertNotIn('Buy peacock feathers', page_text)
             self.assertIn('Buy milk', page_text)
 
-            #Satisfied, they both go back to skleep
+            #Satisfied, they both go back to sleep
 
 if __name__ == "__main__":
     unittest.main()
