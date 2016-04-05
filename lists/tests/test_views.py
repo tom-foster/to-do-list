@@ -20,17 +20,18 @@ class HomePageTest(TestCase):
         self.assertEqual(response.content.decode(), expected_html)
 
 class LiveViewTest(TestCase):
+
+    def test_uses_list_template(self):
+        list_ = List.objects.create()
+        response = self.client.get('/lists/%d/' % (list_.id,))
+        self.assertTemplateUsed(response, 'list.html')
+
     def test_passes_correct_list_to_template(self):
         other_list = List.objects.create()
         correct_list = List.objects.create()
         response = self.client.get('/lists/%d/' % (correct_list.id,))
 
         self.assertEqual(response.context['list'], correct_list)
-
-    def test_uses_list_template(self):
-        list_ = List.objects.create()
-        response = self.client.get('/lists/%d/' % (list_.id,))
-        self.assertTemplateUsed(response, 'list.html')
 
     def test_displays_only_items_for_that_list(self):
         correct_list = List.objects.create()
@@ -71,6 +72,17 @@ class LiveViewTest(TestCase):
                         )
         self.assertRedirects(response, '/lists/%d/' % (correct_list.id,))
 
+    def test_validation_errors_end_up_on_lists_page(self):
+        list_ = List.objects.create()
+        response = self.client.post(
+                '/lists/%d/' % (list_.id,),
+                data={'item_text' : ''}
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'list.html')
+        expected_error = escape("You can't have an empty list item")
+        self.assertContains(response, expected_error)
+
 class NewListTest(TestCase):
 
         def test_saving_a_POST_request(self):
@@ -102,14 +114,3 @@ class NewListTest(TestCase):
             self.client.post('/lists/new', data={'item_text': ''})
             self.assertEqual(List.objects.count(), 0)
             self.assertEqual(Item.objects.count(), 0)
-
-        def test_validation_errors_end_up_on_lists_page(self):
-            list_ = List.objects.create()
-            response = self.client.post(
-                    '/lists/%d/' % (list_.id,),
-                    data={'item_text' : ''}
-                )
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, 'list.html')
-            expected_error = escape("You can't have an empty list item")
-            self.assertContains(response, expected_error)
