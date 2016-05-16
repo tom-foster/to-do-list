@@ -25,7 +25,7 @@ class MyListsTest(FunctionalTest):
             path = '/',
         ))
 
-    def test_loggined_in_users_lists_are_saved_as_my_lists(self):
+    def test_logged_in_users_lists_are_saved_as_my_lists(self):
         email = 'rachael@mockmyid.com'
 
         self.browser.get(self.server_url)
