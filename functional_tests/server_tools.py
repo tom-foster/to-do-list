@@ -6,7 +6,7 @@ THIS_FOLDER = path.dirname(path.abspath(__file__))
 def create_session_on_server(host, email):
     return subprocess.check_output(
         [
-            'C:/Python27/Scripts/fab.exe',
+            'fab',
             'create_session_on_server:email={}'.format(email),
             '--host={}'.format(host),
             '--hide=everything,status',
@@ -17,5 +17,6 @@ def create_session_on_server(host, email):
 def reset_database(host):
     subprocess.check_call(
         ['C:/Python27/Scripts/fab.exe', 'reset_database', '--host={}'.format(host)],
+        '-i C:/Users/Tom/Documents/website_projects/django/key_pair/first-server-open',
         cwd=THIS_FOLDER
     )
