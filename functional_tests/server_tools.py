@@ -16,6 +16,6 @@ def create_session_on_server(host, email):
 
 def reset_database(host):
     subprocess.check_call(
-        ['C:/Python27/Scripts/fab.exe', 'reset_database', 'host={}'.format(host)],
+        ['C:/Python27/Scripts/fab.exe', 'reset_database', '--host={}'.format(host)],
         cwd=THIS_FOLDER
     )
