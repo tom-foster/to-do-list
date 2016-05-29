@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'functional_tests',
 )
 
-AUTH_USER_MODEL = 'accounts.user'
+AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
     'accounts.authentication.PersonaAuthenticationBackend',
 )
