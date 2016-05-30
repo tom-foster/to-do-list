@@ -8,8 +8,14 @@ from .base import FunctionalTest
 from .server_tools import create_session_on_server
 from .management.commands.create_session import create_pre_authenticated_session
 
+from selenium.webdriver.support.ui import WebDriverWait
 
 class MyListsTest(FunctionalTest):
+
+    def wait_for_element_with_link_text(self, link_text):
+        WebDriverWait(self.browser, timeout=30).until(
+            lambda b: b.find_element_by_link_text(link_text).click()
+        )
 
     def create_pre_authenticated_session(self, email):
         if self.against_staging:
@@ -36,21 +42,25 @@ class MyListsTest(FunctionalTest):
         first_list_url = self.browser.current_url
 
         #She notices a "My lists" link, for the first time.
-        self.browser.find_element_by_link_text('My lists').click()
+        # self.browser.find_element_by_link_text('My lists').click()
+        self.wait_for_element_with_link_text('My lists')
 
         #She sees that her list is in there, named according to items
         #first list items
-        self.browser.find_element_by_link_text('Reticulate splines').click()
+        # self.browser.find_element_by_link_text('Reticulate splines').click()
+        self.wait_for_element_with_link_text('Reticulate splines')
         self.assertEqual(self.browser.current_url, first_list_url)
 
-        #She decideds to start another list, just to see
+        #She decides to start another list, just to see
         self.browser.get(self.server_url)
         self.get_item_input_box().send_keys('Click cows\n')
         second_list_url = self.browser.current_url
 
         #Under 'my lists', her name list appears
-        self.browser.find_element_by_link_text('My lists').click()
-        self.browser.find_element_by_link_text('Click cows').click()
+        # self.browser.find_element_by_link_text('My lists').click()
+        # self.browser.find_element_by_link_text('Click cows').click()
+        self.wait_for_element_with_link_text('My lists')
+        self.wait_for_element_with_link_text('Click cows')
         self.assertEqual(self.browser.current_url, second_list_url)
 
         #She logs out. The "My lists" option disappears
