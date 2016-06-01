@@ -28,7 +28,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         def setUp(self):
             if self.against_staging:
                 reset_database(self.server_host)
-            self.browser = webdriver.Firefox()
+            self.browser = webdriver.Chrome('C:/Users/Tom\Documents/website_projects/django/chromedriver_win32/chromedriver')
             self.browser.implicitly_wait(3)
 
         def tearDown(self):
