@@ -8,7 +8,6 @@ from .base import FunctionalTest
 from .server_tools import create_session_on_server
 from .management.commands.create_session import create_pre_authenticated_session
 
-
 class MyListsTest(FunctionalTest):
 
     def create_pre_authenticated_session(self, email):
@@ -43,7 +42,7 @@ class MyListsTest(FunctionalTest):
         self.browser.find_element_by_link_text('Reticulate splines').click()
         self.assertEqual(self.browser.current_url, first_list_url)
 
-        #She decideds to start another list, just to see
+        #She decides to start another list, just to see
         self.browser.get(self.server_url)
         self.get_item_input_box().send_keys('Click cows\n')
         second_list_url = self.browser.current_url
