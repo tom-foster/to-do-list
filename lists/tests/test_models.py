@@ -58,7 +58,7 @@ class ListModelTest(TestCase):
         list_ = List.objects.create()
         self.assertEqual(list_.get_absolute_url(), '/lists/%d/' % (list_.id))
 
-<<<<<<< HEAD
+
     def test_create_new_creates_list_and_first_item(self):
         List.create_new(first_item_text='new item text')
         new_item = Item.objects.first()
@@ -82,15 +82,6 @@ class ListModelTest(TestCase):
         returned = List.create_new(first_item_text='new item text')
         new_list = List.objects.first()
         self.assertEqual(returned, new_list)
-=======
-    def test_lists_can_have_owners(self):
-        user = User.objects.create(email='a@b.com')
-        list_ = List.objects.create(owner=user)
-        self.assertIn(list_, user.list_set.all())
-
-    def test_list_owner_is_optional(self):
-        List.objects.create() #should not raise
->>>>>>> d8eddd839eda59aea0ee0445ef4cf82e65328344
 
     def test_list_name_is_first_item_text(self):
         list_ = List.objects.create()
