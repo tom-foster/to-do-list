@@ -42,7 +42,8 @@ class NewVisitorTest(FunctionalTest):
             ##We use a new browser session to make sure that no information
             ##of Mary's is coming through to cookies etc
             self.browser.quit()
-            self.browser = webdriver.Firefox()
+            ## for linux you'll need to specify the path for windows
+            self.browser = webdriver.Chrome()
 
             #Rachael vists the home page. There is no sign of Mary's lists.
             self.browser.get(self.server_url)
