@@ -43,8 +43,9 @@ class NewVisitorTest(FunctionalTest):
             ##of Mary's is coming through to cookies etc
             self.browser.quit()
             ## for linux you'll need to specify the path for windows
-            self.browser = webdriver.Chrome()
-
+            # self.browser = webdriver.Chrome()
+            ## for windows
+            self.browser = webdriver.Chrome('C:/Users/Tom\Documents/website_projects/django/chromedriver_win32/chromedriver')
             #Rachael vists the home page. There is no sign of Mary's lists.
             self.browser.get(self.server_url)
             page_text = self.browser.find_element_by_tag_name('body').text

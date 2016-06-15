@@ -15,8 +15,10 @@ class SharingTest(FunctionalTest):
         self.addCleanup(lambda: quit_if_possible(mary_browser))
 
         #Her friend Oniciferous is also hanging out on the lists site
-        #changed for linux
-        oni_browser = webdriver.Chrome()
+        ## changed for linux
+        # oni_browser = webdriver.Chrome()
+        ## for windows
+        oni_browser = webdriver.Chrome('C:/Users/Tom\Documents/website_projects/django/chromedriver_win32/chromedriver')
         self.addCleanup(lambda: quit_if_possible(oni_browser))
         self.create_pre_authenticated_session('oniciferious@example.com')
 
