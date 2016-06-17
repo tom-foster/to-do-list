@@ -15,7 +15,20 @@
 {% endblock %}
 
 {% block extra_content %}
-  <form action="" method="POST">
-    <input type="text" name="email">
-  </form>
+<div class="row">
+
+
+
+
+  <div class="col-md-4 col-md-offset-1">
+    <h3>Share this list:</h3>
+    <form action="{% url 'share_list' list.id %}" method="POST">
+      {% csrf_token %}
+      <input type="email" name="email" placeholder="your-friend@example.com" />
+    </form>
+  </div>
+
+
+</div>
+
 {% endblock %}
